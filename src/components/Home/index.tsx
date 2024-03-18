@@ -1,10 +1,26 @@
 import { Routes, Route } from 'react-router-dom';
 import Header from '../Header';
-import App from '../../App';
+import Generate from '../Generate';
+
+function Home() {
+  return (
+    <div>
+      <Header />
+      <div className="container mx-auto mt-0 px-5">
+        <Routes>
+          <Route path="/" element={<AboutChainReaction />} />
+          <Route path="/generate" element={<Generate />} />
+        </Routes>
+      </div>
+    </div>
+  );
+}
+
+export default Home;
 
 function AboutChainReaction() {
   return (
-    <div className="container mx-auto mt-0 px-5 flex justify-center items-center flex-col">
+    <div className="flex justify-center items-center flex-col">
       <div className="text-3xl mt-3">Chain Reaction</div>
       <div className="w-2/3 mt-3">
         Responsible disclosure of vulnerabilities continues to be an integral
@@ -29,17 +45,3 @@ function AboutChainReaction() {
     </div>
   );
 }
-
-function Home() {
-  return (
-    <div>
-      <Header />
-      <Routes>
-        <Route path="/" element={<AboutChainReaction />} />
-        <Route path="/generate" element={<App />} />
-      </Routes>
-    </div>
-  );
-}
-
-export default Home;

@@ -92,4 +92,38 @@ export const chainsArray = [
       },
     },
   ],
+  [
+    {
+      name: 'attackA',
+
+      initState: {
+        paramA1: 'xA',
+
+        paramA2: 'yA',
+      },
+
+      endState: {
+        paramA1: 'xB',
+
+        paramA2: 'yB',
+
+        paramA3: 'zB',
+      },
+    },
+    {
+      name: 'attackE',
+
+      initState: {
+        paramA1: 'xB',
+
+        paramA2: 'yB',
+      },
+
+      endState: {
+        parmD1: 'z',
+
+        parmD2: 'z2',
+      },
+    },
+  ],
 ];

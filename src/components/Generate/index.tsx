@@ -1,7 +1,7 @@
-import './App.css';
 import ForceGraph from 'force-graph';
 import { useEffect, useRef } from 'react';
-import { chainsArray } from './dummyData';
+import { chainsArray } from '../../dummyData';
+import UserForm from '../UserForm';
 
 function createNodesArray(chain) {
   return chain.map((item) => ({ id: item.name }));
@@ -34,12 +34,12 @@ function createChain(chainArray, parentNode) {
       .enableNodeDrag(false)
       .enablePanInteraction(false)
       .nodeColor(() => '#AA4A44')
-      .width(700)
-      .height(350);
+      .width(600)
+      .height(250);
   });
 }
 
-function App() {
+function Generate() {
   const graphNodeRef = useRef(null);
   useEffect(() => {
     if (graphNodeRef.current) {
@@ -48,14 +48,19 @@ function App() {
   }, []);
 
   return (
-    <>
-      <div ref={graphNodeRef} id="chains-container">
+    <div className="flex justify-between">
+      <UserForm />
+      <div ref={graphNodeRef} id="chains-container" className="mt-3">
         {chainsArray.map((_, index) => (
-          <div id={`chain${index}`} key={`chain${index}`}></div>
+          <div
+            id={`chain${index}`}
+            key={`chain${index}`}
+            className="border-gray-400 rounded-xl border-2 mb-4"
+          ></div>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 
-export default App;
+export default Generate;
