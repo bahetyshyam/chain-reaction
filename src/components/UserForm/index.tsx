@@ -7,6 +7,8 @@ import {
   attackerHardware,
   attackerPostCondition,
 } from '../../formData';
+import { getChains } from '../../api/service';
+import { ChainObject } from '../../types';
 
 function FormItemContainer({ formItem, onChangeOfCheckboxItem }) {
   if (formItem.type === 'dropdown') {
@@ -97,12 +99,19 @@ function FormOption({ option, type, parentId }) {
   );
 }
 
-function UserForm() {
+type UserFormProps = {
+  updateChainsArray(chains: ChainObject[]): void;
+};
+function UserForm({ updateChainsArray }: UserFormProps) {
   const [formDataState, setFormDataState] =
     useState<typeof victimProtocol>(victimProtocol);
   function onChangeOfCheckboxItem(e, formItem) {
     formItem.checked = e.target.checked;
     setFormDataState([...formDataState]);
+  }
+  async function onClickShowChains() {
+    const response = await getChains();
+    updateChainsArray(response);
   }
   return (
     <div>
@@ -201,6 +210,7 @@ function UserForm() {
       <button
         type="button"
         className="text-white bg-blue-500 hover:bg-blue-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-full mt-6"
+        onClick={onClickShowChains}
       >
         Show Chains
       </button>
