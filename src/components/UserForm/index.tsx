@@ -1,4 +1,4 @@
-import { useId, useState } from 'react';
+import { useState } from 'react';
 import {
   victimProtocol,
   victimPreCondition,
@@ -9,95 +9,7 @@ import {
 } from '../../formData';
 import { getChains } from '../../api/service';
 import { ChainObject } from '../../types';
-
-function FormItemContainer({ formItem, onChangeOfCheckboxItem }) {
-  if (formItem.type === 'dropdown') {
-    return (
-      <div className="dropdown-item">
-        <input
-          id={formItem.value}
-          type="checkbox"
-          value={formItem.value}
-          checked={formItem.checked}
-          className=" bg-gray-100 border-gray-300 rounded"
-          name="first-level-dropdown"
-          onChange={(e) => onChangeOfCheckboxItem(e, formItem)}
-        />
-        <label htmlFor={formItem.value} className="ms-2">
-          {formItem.value}
-        </label>
-        {formItem.checked &&
-          formItem.children?.map((child) => {
-            return (
-              <div className="ml-4">
-                <FormChild child={child} />
-              </div>
-            );
-          })}
-      </div>
-    );
-  }
-  if (formItem.type === 'radio' || formItem.type === 'select') {
-    return <FormChild child={formItem} />;
-  }
-}
-
-function FormChild({ child }) {
-  const uniqueIdForItem = useId();
-  return (
-    <div className={`child-item`}>
-      <div>{child.title}</div>
-      {child.options?.map((option) => {
-        return (
-          <FormOption
-            option={option}
-            type={child.type}
-            parentId={uniqueIdForItem}
-          />
-        );
-      })}
-    </div>
-  );
-}
-
-function FormOption({ option, type, parentId }) {
-  const id = useId();
-  return (
-    <div className="option-item">
-      {type === 'select' && (
-        <div>
-          <input
-            id={id}
-            type="checkbox"
-            value={option.value}
-            name={parentId}
-            className="bg-gray-100 border-gray-300 rounded"
-          />
-          <label htmlFor={id} className="ms-2">
-            {option.value}
-          </label>
-        </div>
-      )}
-      {type === 'radio' && (
-        <div>
-          <input
-            id={id}
-            type="radio"
-            value={option.value}
-            name={parentId}
-            className="bg-gray-100 border-gray-300 rounded"
-          />
-          <label htmlFor={id} className="ms-2">
-            {option.value}
-          </label>
-        </div>
-      )}
-
-      {option.children &&
-        option.children.map((child) => <FormChild child={child} />)}
-    </div>
-  );
-}
+import FormItemContainer from '../FormItemContainer';
 
 type UserFormProps = {
   updateChainsArray(chains: ChainObject[]): void;
@@ -109,7 +21,12 @@ function UserForm({ updateChainsArray }: UserFormProps) {
     formItem.checked = e.target.checked;
     setFormDataState([...formDataState]);
   }
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
   async function onClickShowChains() {
+    scrollToTop();
     const response = await getChains();
     updateChainsArray(response);
   }

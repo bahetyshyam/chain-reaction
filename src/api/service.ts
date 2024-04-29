@@ -9,7 +9,13 @@ type GetChainsResponseType = {
 export async function getChains(): Promise<ChainObject[]> {
   try {
     const response = await axiosInstance.post<GetChainsResponseType>('chains', {
-      initState: { paramA1: 'xA', paramA2: 'yA' },
+      initState: {
+        'LTE (4G) Unauthenticated': 'LTE (4G) Unauthenticated',
+        'LTE (4G) Authenticated': 'LTE (4G) Authenticated',
+        'LTE (4G) Communicating using AES': 'LTE (4G) Communicating using AES',
+        'LTE (4G) Communicating using ZUC': 'LTE (4G) Communicating using ZUC',
+      },
+      initial_knowledge: [''],
     });
     return response.data.chains;
   } catch (err) {

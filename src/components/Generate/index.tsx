@@ -37,7 +37,7 @@ function createChain(chainArray: ListOfChainsToShow) {
       .nodeLabel((node) => (node.id as string) || 'Hello world')
       .linkDirectionalParticles(3)
       .enableNodeDrag(false)
-      .enablePanInteraction(false)
+      .enablePanInteraction(true)
       .nodeColor(() => '#AA4A44')
       .width(600)
       .height(250);
